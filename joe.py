@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Oct  8 12:35:17 2020
+(c) 2020
 
 @author: Josephat Koima
 PhD Candidate - Michigan State University
