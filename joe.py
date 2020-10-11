@@ -14,7 +14,7 @@ website: https://sites.google.com/msu.edu/josephat-koima
     The relevant fields extracted include: 
    'Institution', 'Position','Date Posted','Application Deadline','Location','Country',
    'Citizenship Requirements','Review Date','Application Requirements' 
-@Range: Extracted jobs are limited to those between: August 1, 2020-Jan 31, 2021
+@Range: Extracted jobs are limited to those posted between: August 1, 2020-Jan 31, 2021
 
 **Comments are welcome
 """
