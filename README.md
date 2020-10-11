@@ -9,4 +9,4 @@ You can sort jobs by deadlines - important since JOE doesn't allow this.
 You can view details on the review process - some jobs start reviewing applications before application deadlines.
 Fields included:Institution, Position,Date Posted,Application Deadline, Location, Country,
 Citizenship Requirements, Review Date,Application Requirements.
-Extracted jobs are limited to those between: August 1, 2020 - Jan 31, 2021.
+Extracted jobs are limited to those posted between: August 1, 2020 - Jan 31, 2021.
