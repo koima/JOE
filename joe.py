@@ -2,7 +2,6 @@
 """
 Created on Thu Oct  8 12:35:17 2020
 (c) 2020
-
 @author: Josephat Koima
 PhD Candidate - Michigan State University
 Dual Major: Economics / Agricultural,Food, & Resource Econ
@@ -13,8 +12,8 @@ website: https://sites.google.com/msu.edu/josephat-koima
     This code extracts JOE job lists into an excel file. 
     The relevant fields extracted include: 
    'Institution', 'Position','Date Posted','Application Deadline','Location','Country',
-   'Citizenship Requirements','Review Date','Application Requirements' 
-@Range: Extracted jobs are limited to those posted between: August 1, 2020-Jan 31, 2021
+   'Citizenship Requirements','Review Date','Application Requirements', JEL CODES
+@Range: Extracted jobs are limited to those between: August 1, 2020-Jan 31, 2021
 
 **Comments are welcome
 """
@@ -38,7 +37,7 @@ results=soup.findAll('div',attrs={'class':'listing-institution-group-item'})
 jobs=[]
 
 #Go through each listing and extract important detailes
-for result in results:
+for result in results[:6]:
     job=[]
     #institution
     inst=result.find('h5',attrs={'class':'group-header-title'}).text
@@ -68,6 +67,13 @@ for result in results:
         #Location of the job (Multiple job locations will yield and empty string)
         location=((bodies[i].findAll('h6')[1].text).split(':')[1]).strip()
         
+        
+        #JEL CODES
+        jel_descr=bodies[i].findAll('h6')[2]
+        jels=jel_descr.find_next_siblings('div',attrs={'class':'meta-list-item'})
+        jel_list=(jel_descr.text).split(':')[1].strip()
+        for jcode in jels:
+            jel_list +=jcode.text+','
         #Country of the job 
         country=location.split(',')[-1].strip()
        
@@ -101,16 +107,18 @@ for result in results:
         
         #print out some details
         print(inst+'    '+pos+'    '+posted[i].text+'    '+deadline + '   '+location.strip())
-        print(joelink)
         print('Citizenship:'+citizen)
         print('Review:'+review)
-        
+        print('JEL CODES:'+ jel_list)
+        print(joelink)
+
         #list containing all the info we want
-        job=[inst,pos,date_posted,app_deadline,location,country,citizen,review,requirements,joelink]
+        job=[inst,pos,date_posted,app_deadline,jel_list, location,country,citizen,review,requirements]
         
         #add the job to the list containing all jobs
         jobs.append(job)
-
+        print('***************************************************************************************************')
 #Export data to excel using pandas data-frames 
-df = pd.DataFrame(jobs, columns =['Institution', 'Position','Date Posted','Application Deadline','Location','Country','Citizenship Requirements','Review Date','Application Requirements','JOE Link']) 
+df = pd.DataFrame(jobs, columns =['Institution', 'Position','Date Posted','Application Deadline','JEL Classifications','Location','Country','Citizenship Requirements','Review Date','Application Requirements']) 
 df.to_excel("JOE_jobs.xlsx")
+print('*******************DONE*************************')
