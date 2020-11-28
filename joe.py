@@ -36,8 +36,8 @@ results=soup.findAll('div',attrs={'class':'listing-institution-group-item'})
 #List to store all jobs
 jobs=[]
 
-#Go through each listing and extract important detailes
-for result in results[:6]:
+#Go through each listing and extract important details
+for result in results:
     job=[]
     #institution
     inst=result.find('h5',attrs={'class':'group-header-title'}).text
@@ -83,10 +83,13 @@ for result in results[:6]:
         
         #Job application requirements
         req=soup2.find('ul',attrs={'class':'app-instruct-desc'}).find_all('li')
-        requirements=req[0].text
-        for r in req[1:]:
-            requirements+=","+r.text
-            
+        try:
+            requirements=req[0].text
+            for r in req[1:]:
+                requirements+=","+r.text
+        except:
+            requirements=""
+
         #citizenship requirements (e.g. US Citizenship Required)
         cit=soup2.find('p', attrs={'class':'full-text'}).text
         cit=cit.replace('U.S.','US')
