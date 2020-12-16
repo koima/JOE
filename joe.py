@@ -57,7 +57,7 @@ for result in results:
         pos=titles[i].find('a').text
         
         #link to the full job description
-        joelink='https://www.aeaweb.org/'+titles[i].find('a')['href']
+        joelink='https://www.aeaweb.org/'+(titles[i].find('a')['href']).split('&')[0]
         
         #etract deadline (if listed)
         try:
@@ -116,12 +116,12 @@ for result in results:
         print(joelink)
 
         #list containing all the info we want
-        job=[inst,pos,date_posted,app_deadline,jel_list, location,country,citizen,review,requirements]
+        job=[inst,pos,date_posted,app_deadline,jel_list, location,country,citizen,review,requirements,joelink]
         
         #add the job to the list containing all jobs
         jobs.append(job)
         print('***************************************************************************************************')
 #Export data to excel using pandas data-frames 
-df = pd.DataFrame(jobs, columns =['Institution', 'Position','Date Posted','Application Deadline','JEL Classifications','Location','Country','Citizenship Requirements','Review Date','Application Requirements']) 
+df = pd.DataFrame(jobs, columns =['Institution', 'Position','Date Posted','Application Deadline','JEL Classifications','Location','Country','Citizenship Requirements','Review Date','Application Requirements','JOE Link']) 
 df.to_excel("JOE_jobs.xlsx")
 print('*******************DONE*************************')
